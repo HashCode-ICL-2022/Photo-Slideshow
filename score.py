@@ -2,7 +2,7 @@ class Scorer:
 
     def __init__(self):
         pass
-    
+
 
     def slideshow_score(self, slideshow):
         score = 0
