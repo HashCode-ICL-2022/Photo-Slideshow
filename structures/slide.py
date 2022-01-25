@@ -20,3 +20,6 @@ class Slide:
             raise ValueError("Multiple Orientations passed.")
 
         self.orientation = orientations.pop()
+
+    def __repr__(self):
+        return f"Slide(ids={self.ids}, tags={self.tags})"

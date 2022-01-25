@@ -13,4 +13,7 @@ class Image:
             raise ValueError("Image string didn't match")
 
         self.orientation = match.group("orientation")
-        self.tags = match.group("tags").strip().split(" ")
+        self.tags = set(match.group("tags").strip().split(" "))
+
+    def __repr__(self):
+        return f"Image({self.id}, '{self.orientation}', tags={self.tags})"
