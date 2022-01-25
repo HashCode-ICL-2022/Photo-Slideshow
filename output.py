@@ -8,6 +8,7 @@ def output(slideshow, file_name):
         else:
             lines.append(str(id1) + "\n")
 
-    f = open(file_name, "w")
+    file_path = "./output/" + file_name
+    f = open(file_path, "w")
     f.writelines(lines)
     f.close()

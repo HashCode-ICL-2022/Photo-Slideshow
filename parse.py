@@ -22,7 +22,7 @@ if __name__ == "__main__":
             slides.add(slide)
 
     # Add vertical slides to available slides
-    slides += max_vertical(vertical_images)
+    slides.update(max_vertical(vertical_images))
 
     print("Slides in slideshow", len(slides))
 
