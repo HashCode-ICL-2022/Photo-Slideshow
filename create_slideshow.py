@@ -1,4 +1,5 @@
 from score import pair_score
+from tqdm import tqdm
 
 
 class CreateSlideshowNaive:
@@ -32,6 +33,10 @@ class CreateSlideshowNaive:
                 best_slide_loc = loc
                 best_slide = slide
 
+        # Quit early if no slide was found to add to score
+        if not best_slide:
+            return False
+
         # Add best score to total
         self.algoscore += best_score
 
@@ -43,6 +48,9 @@ class CreateSlideshowNaive:
 
         # Remove slide from slides
         self.slides.remove(best_slide)
+
+        # Keep on going
+        return True
 
     def create(self):
 
@@ -58,7 +66,9 @@ class CreateSlideshowNaive:
         self.slideshow.append(next_slide)
         self.slides.remove(next_slide)
 
-        while len(self.slides):
-            self.add_to_edges()
-
-        return self.slideshow, self.algoscore
+        go = True
+        for i in tqdm(range(len(self.slides))):
+            if go:
+                go = self.add_to_edges()
+            else:
+                return self.slideshow, self.algoscore

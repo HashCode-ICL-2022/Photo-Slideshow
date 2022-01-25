@@ -1,4 +1,4 @@
-from slide import Slide
+from structures.slide import Slide
 
 
 def max_vertical(photo_set):
@@ -6,15 +6,15 @@ def max_vertical(photo_set):
     # photo.tags = set()
     max_tags = 0
     slides = set()
+    photos_seen = set()
     for photo1 in photo_set:
-        slide = Slide()
         for photo2 in photo_set:
             if photo1 == photo2:
                 continue
             total_tags = photo1.tags.intersection(photo2.tags)
             if len(total_tags) > max_tags:
-                max_tags = total_tags
-                slide.ids = [photo1.id, photo2.id]
+                max_tags = len(total_tags)
+                slide = Slide({photo1, photo2})
         slides.add(slide)
         photo_set.remove(photo1)
         photo_set.remove(photo2)

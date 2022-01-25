@@ -1,12 +1,13 @@
 def output(slideshow, file_name):
-    lines = [len(slideshow)]
+    lines = [str(len(slideshow))]
     for slide in slideshow:
         id1 = slide.ids.pop()
         if slide.ids:
             id2 = slide.ids.pop()
-            lines.append(id1 + " " + id2 + "\n")
+            lines.append(str(id1) + " " + str(id2) + "\n")
         else:
-            lines.append(id1 + "\n")
+            lines.append(str(id1) + "\n")
 
     f = open(file_name, "w")
     f.writelines(lines)
+    f.close()

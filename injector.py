@@ -1,11 +1,10 @@
 from structures import Slide, Image
-from create_slideshow import CreateSlideshowNaive
-from output import output
-from max_vertical import max_vertical
+from create_slideshow_injector import CreateSlideshowInjector
 
 if __name__ == "__main__":
     # filename = "data/b_lovely_landscapes.txt"
     filename = "data/c_memorable_moments.txt"
+    # filename = "data/a_example.txt"
     with open(filename, 'r') as images_pointer:
         image_strings = images_pointer.readlines()[1:]
 
@@ -21,12 +20,11 @@ if __name__ == "__main__":
             slide = Slide([image])
             slides.add(slide)
 
-    # Add vertical slides to available slides
-    slides += max_vertical(vertical_images)
-
+    # print(vertical_images)
     print("Slides in slideshow", len(slides))
 
-    s = CreateSlideshowNaive(slides)
+    s = CreateSlideshowInjector(slides)
     slideshow, algoscore = s.create()
 
-    output(slideshow, "Naive_B.txt")
+    print(algoscore)
+    # print(slideshow)
