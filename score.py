@@ -1,16 +1,10 @@
-class Scorer:
-
-    def __init__(self):
-        pass
-
-
-    def slideshow_score(self, slideshow):
-        score = 0
-        for i in range(len(slideshow) - 1):
-            slide_1 = slideshow[i]
-            slide_2 = slideshow[i+1]
-            score += pair_score(slide_1, slide_2)
-        return score
+def slideshow_score(slideshow):
+    score = 0
+    for i in range(len(slideshow) - 1):
+        slide_1 = slideshow[i]
+        slide_2 = slideshow[i+1]
+        score += pair_score(slide_1, slide_2)
+    return score
 
     
 def pair_score(slide_1, slide_2):
