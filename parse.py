@@ -1,5 +1,5 @@
-
 from structures import Slide, Image
+from create_slideshow import CreateSlideshowNaive
 
 if __name__ == "__main__":
 
@@ -18,5 +18,12 @@ if __name__ == "__main__":
             slide = Slide([image])
             slides.add(slide)
 
-    print(vertical_images)
-    print(slides)
+    # print(vertical_images)
+    print("Slides in slideshow", slides)
+
+    s = CreateSlideshowNaive(slides)
+    slideshow, algoscore = s.create()
+
+    print(algoscore)
+    print(slideshow)
+    print(slideshow[0] is slideshow[-1])
