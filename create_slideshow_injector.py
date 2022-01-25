@@ -1,9 +1,10 @@
 from score import pair_score
+from heuristic import heuristic_score, get_tag_occurances
 
 
 class CreateSlideshowInjector:
     def __init__(self, slides):
-        self.slides = slides
+        self.slides = list(slides)
         self.slideshow = []
         self.algoscore = 0
         self.slideshow_scores = []
@@ -46,25 +47,44 @@ class CreateSlideshowInjector:
         # Increase score
         self.algoscore += best_score
 
+        # print("")
+        # print(
+        #     f"Injecting {next_slide.ids} at {inject_loc} increasing by {best_score}"
+        # )
+        # print("backscore, frontscore", backscore, frontscore)
+        # print("scores", self.slideshow_scores)
+        # print([str(i.ids) for i in self.slideshow])
+        # print("")
+
         # Perform the injection
         if inject_loc == "back":
             self.slideshow.append(next_slide)
             self.slideshow_scores.append(best_score)
             self.injections[0] += 1
+
         elif inject_loc == "front":
             self.slideshow.insert(0, next_slide)
             self.slideshow_scores.insert(0, best_score)
             self.injections[0] += 1
+
         else:
             self.injections[1] += 1
             self.slideshow.insert(inject_loc, next_slide)
             self.slideshow_scores[inject_loc] = inject_scores[0]
             self.slideshow_scores.insert(inject_loc, inject_scores[1])
 
+        # input()
+
     def create(self):
+        tags = get_tag_occurances(self.slides)
+        slideshow_size = len(self.slides)
+        self.slides.sort(
+            key=lambda slide: heuristic_score(slide, tags, slideshow_size),
+            reverse=True)
+
         # Take initial random slide
         # Loop through all remaining slides and find best first pair
-        slide = self.slides.pop()
+        slide = self.slides.pop(0)
         self.slideshow.append(slide)
         best_score = 0
         for other_slide in self.slides:
@@ -78,7 +98,10 @@ class CreateSlideshowInjector:
         self.slideshow.append(next_slide)
         self.slides.remove(next_slide)
 
-        for next_slide in self.slides:
-            self.inject_slide(next_slide)
+        while self.slides:
+            self.inject_slide(self.slides.pop(0))
+            print(len(self.slideshow))
+
+        print(self.injections)
 
         return self.slideshow, self.algoscore

@@ -26,5 +26,5 @@ if __name__ == "__main__":
     s = CreateSlideshowInjector(slides)
     slideshow, algoscore = s.create()
 
-    print(algoscore)
+    print("Algo Score", algoscore)
     # print(slideshow)
